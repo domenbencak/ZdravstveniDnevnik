@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">ZdravstveniDnevnik</string>
+    <string name="screen_new_measurement">Nova meritev</string>
+    <string name="screen_edit_measurement">Urejanje meritve</string>
+    <string name="screen_measurement_details">Podrobnosti meritve</string>
+    <string name="screen_measurements_list">Seznam meritev</string>
+
+    <string name="field_first_name">Ime</string>
+    <string name="field_last_name">Priimek</string>
+    <string name="field_measurement_date">Datum meritve</string>
+    <string name="field_heart_rate">Srčni utrip (bpm)</string>
+    <string name="field_spo2">SpO2 (%)</string>
+    <string name="field_temperature">Temperatura (°C)</string>
+    <string name="field_heart_rate_short">Srčni utrip</string>
+    <string name="field_spo2_short">SpO2</string>
+    <string name="field_temperature_short">Temperatura</string>
+
+    <string name="btn_select_date">Izberi datum</string>
+    <string name="btn_datepicker_ok">OK</string>
+    <string name="btn_datepicker_cancel">Prekliči</string>
+    <string name="btn_save_measurement">Shrani meritev</string>
+    <string name="btn_update_measurement">Posodobi meritev</string>
+    <string name="btn_measurements_list">Seznam meritev</string>
+
+    <string name="msg_measurement_saved">Meritev uspešno shranjena</string>
+    <string name="msg_measurement_updated">Meritev uspešno posodobljena</string>
+    <string name="msg_measurement_not_found">Meritev ni najdena.</string>
+    <string name="msg_empty_measurements">Ni shranjenih meritev.</string>
+
+    <string name="error_first_name_required">Ime je obvezno.</string>
+    <string name="error_last_name_required">Priimek je obvezen.</string>
+    <string name="error_heart_rate_range">Srčni utrip mora biti med 30 in 250 bpm.</string>
+    <string name="error_spo2_range">SpO2 mora biti med 0 in 100%%.</string>
+    <string name="error_temperature_range">Temperatura mora biti med 34,0 in 42,0 °C.</string>
+
+    <string name="cd_back">Nazaj</string>
+    <string name="cd_edit_measurement">Uredi meritev</string>
+    <string name="cd_delete_measurement">Izbriši meritev</string>
+
+    <string name="value_bpm">%1$d bpm</string>
+    <string name="value_percent">%1$d %%</string>
+    <string name="value_celsius">%1$.1f °C</string>
+    <string name="value_date">Datum: %1$s</string>
 </resources>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">HealthDiary</string>
+    <string name="screen_new_measurement">New measurement</string>
+    <string name="screen_edit_measurement">Edit measurement</string>
+    <string name="screen_measurement_details">Measurement details</string>
+    <string name="screen_measurements_list">Measurements list</string>
+
+    <string name="field_first_name">First name</string>
+    <string name="field_last_name">Last name</string>
+    <string name="field_measurement_date">Measurement date</string>
+    <string name="field_heart_rate">Heart rate (bpm)</string>
+    <string name="field_spo2">SpO2 (%)</string>
+    <string name="field_temperature">Temperature (°C)</string>
+    <string name="field_heart_rate_short">Heart rate</string>
+    <string name="field_spo2_short">SpO2</string>
+    <string name="field_temperature_short">Temperature</string>
+
+    <string name="btn_select_date">Select date</string>
+    <string name="btn_datepicker_ok">OK</string>
+    <string name="btn_datepicker_cancel">Cancel</string>
+    <string name="btn_save_measurement">Save measurement</string>
+    <string name="btn_update_measurement">Update measurement</string>
+    <string name="btn_measurements_list">Measurements list</string>
+
+    <string name="msg_measurement_saved">Measurement saved successfully</string>
+    <string name="msg_measurement_updated">Measurement updated successfully</string>
+    <string name="msg_measurement_not_found">Measurement not found.</string>
+    <string name="msg_empty_measurements">No measurements saved yet.</string>
+
+    <string name="error_first_name_required">First name is required.</string>
+    <string name="error_last_name_required">Last name is required.</string>
+    <string name="error_heart_rate_range">Heart rate must be between 30 and 250 bpm.</string>
+    <string name="error_spo2_range">SpO2 must be between 0 and 100%%.</string>
+    <string name="error_temperature_range">Temperature must be between 34.0 and 42.0 °C.</string>
+
+    <string name="cd_back">Back</string>
+    <string name="cd_edit_measurement">Edit measurement</string>
+    <string name="cd_delete_measurement">Delete measurement</string>
+
+    <string name="value_bpm">%1$d bpm</string>
+    <string name="value_percent">%1$d %%</string>
+    <string name="value_celsius">%1$.1f °C</string>
+    <string name="value_date">Date: %1$s</string>
+</resources>
