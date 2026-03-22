@@ -4,6 +4,11 @@
     <string name="screen_edit_measurement">Urejanje meritve</string>
     <string name="screen_measurement_details">Podrobnosti meritve</string>
     <string name="screen_measurements_list">Seznam meritev</string>
+    <string name="subtitle_measurement_form">Vnesite podatke in spremljajte zdravje na pregleden način.</string>
+    <string name="subtitle_measurement_details">Poglobljen prikaz shranjene meritve.</string>
+    <string name="section_personal_data">Oseba</string>
+    <string name="section_measurement_date">Datum</string>
+    <string name="section_measurement_values">Vrednosti meritve</string>
 
     <string name="field_first_name">Ime</string>
     <string name="field_last_name">Priimek</string>
@@ -26,6 +31,9 @@
     <string name="msg_measurement_updated">Meritev uspešno posodobljena</string>
     <string name="msg_measurement_not_found">Meritev ni najdena.</string>
     <string name="msg_empty_measurements">Ni shranjenih meritev.</string>
+    <string name="msg_empty_measurements_hint">Začnite z dodajanjem prve meritve in spremljajte napredek skozi čas.</string>
+    <string name="summary_measurements_count">Skupaj meritev: %1$d</string>
+    <string name="summary_measurements_hint">Dotik kartice odpre podrobnosti, ikoni omogočata urejanje in brisanje.</string>
 
     <string name="error_first_name_required">Ime je obvezno.</string>
     <string name="error_last_name_required">Priimek je obvezen.</string>
@@ -36,6 +44,9 @@
     <string name="cd_back">Nazaj</string>
     <string name="cd_edit_measurement">Uredi meritev</string>
     <string name="cd_delete_measurement">Izbriši meritev</string>
+    <string name="cd_add_measurement">Dodaj meritev</string>
+
+    <string name="btn_add_first_measurement">Dodaj prvo meritev</string>
 
     <string name="value_bpm">%1$d bpm</string>
     <string name="value_percent">%1$d %%</string>

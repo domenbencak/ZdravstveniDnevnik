@@ -6,15 +6,22 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.MonitorHeart
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -27,6 +34,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +44,6 @@ fun VnosScreen(
     onMeritevSaved: (Int) -> Unit,
     onNavigateToSeznam: () -> Unit
 ) {
-    val context = LocalContext.current
     val isEditMode = editMeritevId != null
     val meritevZaUrejanje by viewModel.getById(editMeritevId ?: -1)
         .collectAsStateWithLifecycle(initialValue = null)
@@ -94,64 +101,185 @@ fun VnosScreen(
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            Text(
-                text = naslov,
-                style = MaterialTheme.typography.headlineMedium
-            )
-
-            OutlinedTextField(
-                value = ime,
-                onValueChange = {
-                    ime = it
-                    imeError = null
-                },
-                label = { Text(stringResource(R.string.field_first_name)) },
-                isError = imeError != null,
-                supportingText = {
-                    if (imeError != null) {
-                        Text(stringResource(imeError!!))
-                    }
-                },
+            Card(
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true
-            )
-
-            OutlinedTextField(
-                value = priimek,
-                onValueChange = {
-                    priimek = it
-                    priimekError = null
-                },
-                label = { Text(stringResource(R.string.field_last_name)) },
-                isError = priimekError != null,
-                supportingText = {
-                    if (priimekError != null) {
-                        Text(stringResource(priimekError!!))
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(18.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.MonitorHeart,
+                            contentDescription = null
+                        )
+                        Text(
+                            text = naslov,
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
                     }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
-            )
 
-            Box(modifier = Modifier.fillMaxWidth()) {
-                OutlinedTextField(
-                    value = df.format(Date(selectedDateMillis)),
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text(stringResource(R.string.field_measurement_date)) },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    Text(
+                        text = stringResource(R.string.subtitle_measurement_form),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
 
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { showDatePicker = true }
-                )
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.section_personal_data),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    OutlinedTextField(
+                        value = ime,
+                        onValueChange = {
+                            ime = it
+                            imeError = null
+                        },
+                        label = { Text(stringResource(R.string.field_first_name)) },
+                        isError = imeError != null,
+                        supportingText = {
+                            if (imeError != null) {
+                                Text(stringResource(imeError!!))
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true
+                    )
+
+                    OutlinedTextField(
+                        value = priimek,
+                        onValueChange = {
+                            priimek = it
+                            priimekError = null
+                        },
+                        label = { Text(stringResource(R.string.field_last_name)) },
+                        isError = priimekError != null,
+                        supportingText = {
+                            if (priimekError != null) {
+                                Text(stringResource(priimekError!!))
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true
+                    )
+                }
+            }
+
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.section_measurement_date),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        OutlinedTextField(
+                            value = df.format(Date(selectedDateMillis)),
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text(stringResource(R.string.field_measurement_date)) },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Filled.CalendarMonth,
+                                    contentDescription = null
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null
+                                ) { showDatePicker = true }
+                        )
+                    }
+                }
+            }
+
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.section_measurement_values),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    OutlinedTextField(
+                        value = srcniUtrip,
+                        onValueChange = {
+                            srcniUtrip = it
+                            srcniUtripError = null
+                        },
+                        label = { Text(stringResource(R.string.field_heart_rate)) },
+                        isError = srcniUtripError != null,
+                        supportingText = {
+                            if (srcniUtripError != null) {
+                                Text(stringResource(srcniUtripError!!))
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+
+                    OutlinedTextField(
+                        value = spO2,
+                        onValueChange = {
+                            spO2 = it
+                            spO2Error = null
+                        },
+                        label = { Text(stringResource(R.string.field_spo2)) },
+                        isError = spO2Error != null,
+                        supportingText = {
+                            if (spO2Error != null) {
+                                Text(stringResource(spO2Error!!))
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+
+                    OutlinedTextField(
+                        value = temperatura,
+                        onValueChange = {
+                            temperatura = it
+                            temperaturaError = null
+                        },
+                        label = { Text(stringResource(R.string.field_temperature)) },
+                        isError = temperaturaError != null,
+                        supportingText = {
+                            if (temperaturaError != null) {
+                                Text(stringResource(temperaturaError!!))
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                    )
+                }
             }
 
             if (showDatePicker) {
@@ -179,61 +307,22 @@ fun VnosScreen(
                 }
             }
 
-            OutlinedTextField(
-                value = srcniUtrip,
-                onValueChange = {
-                    srcniUtrip = it
-                    srcniUtripError = null
-                },
-                label = { Text(stringResource(R.string.field_heart_rate)) },
-                isError = srcniUtripError != null,
-                supportingText = {
-                    if (srcniUtripError != null) {
-                        Text(stringResource(srcniUtripError!!))
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
+            HorizontalDivider()
 
-            OutlinedTextField(
-                value = spO2,
-                onValueChange = {
-                    spO2 = it
-                    spO2Error = null
-                },
-                label = { Text(stringResource(R.string.field_spo2)) },
-                isError = spO2Error != null,
-                supportingText = {
-                    if (spO2Error != null) {
-                        Text(stringResource(spO2Error!!))
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
-
-            OutlinedTextField(
-                value = temperatura,
-                onValueChange = {
-                    temperatura = it
-                    temperaturaError = null
-                },
-                label = { Text(stringResource(R.string.field_temperature)) },
-                isError = temperaturaError != null,
-                supportingText = {
-                    if (temperaturaError != null) {
-                        Text(stringResource(temperaturaError!!))
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
+            FilledTonalButton(
+                onClick = onNavigateToSeznam,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(stringResource(R.string.btn_measurements_list))
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = null
+                    )
+                }
+            }
 
             Button(
                 onClick = {
@@ -308,13 +397,6 @@ fun VnosScreen(
                         stringResource(R.string.btn_save_measurement)
                     }
                 )
-            }
-
-            OutlinedButton(
-                onClick = onNavigateToSeznam,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(stringResource(R.string.btn_measurements_list))
             }
         }
     }

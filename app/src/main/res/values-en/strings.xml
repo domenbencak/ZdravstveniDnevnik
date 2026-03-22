@@ -4,6 +4,11 @@
     <string name="screen_edit_measurement">Edit measurement</string>
     <string name="screen_measurement_details">Measurement details</string>
     <string name="screen_measurements_list">Measurements list</string>
+    <string name="subtitle_measurement_form">Enter values and track health in a clean, engaging flow.</string>
+    <string name="subtitle_measurement_details">Detailed view of a saved measurement.</string>
+    <string name="section_personal_data">Person</string>
+    <string name="section_measurement_date">Date</string>
+    <string name="section_measurement_values">Measurement values</string>
 
     <string name="field_first_name">First name</string>
     <string name="field_last_name">Last name</string>
@@ -26,6 +31,9 @@
     <string name="msg_measurement_updated">Measurement updated successfully</string>
     <string name="msg_measurement_not_found">Measurement not found.</string>
     <string name="msg_empty_measurements">No measurements saved yet.</string>
+    <string name="msg_empty_measurements_hint">Start by adding your first measurement and track progress over time.</string>
+    <string name="summary_measurements_count">Total measurements: %1$d</string>
+    <string name="summary_measurements_hint">Tap a card for details, or use icons to edit and delete.</string>
 
     <string name="error_first_name_required">First name is required.</string>
     <string name="error_last_name_required">Last name is required.</string>
@@ -36,6 +44,9 @@
     <string name="cd_back">Back</string>
     <string name="cd_edit_measurement">Edit measurement</string>
     <string name="cd_delete_measurement">Delete measurement</string>
+    <string name="cd_add_measurement">Add measurement</string>
+
+    <string name="btn_add_first_measurement">Add first measurement</string>
 
     <string name="value_bpm">%1$d bpm</string>
     <string name="value_percent">%1$d %%</string>

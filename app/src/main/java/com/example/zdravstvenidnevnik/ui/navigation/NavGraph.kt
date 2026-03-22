@@ -76,7 +76,8 @@ fun MeritevNavHost(
                 viewModel = viewModel,
                 onOpenDetails = { id -> navController.navigate("prikaz/$id") },
                 onEditMeasurement = { id -> navController.navigate("vnos/$id") },
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                onAddMeasurement = { navController.navigate("vnos") }
             )
         }
     }
