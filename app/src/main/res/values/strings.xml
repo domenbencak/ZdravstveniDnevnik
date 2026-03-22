@@ -4,11 +4,15 @@
     <string name="screen_edit_measurement">Urejanje meritve</string>
     <string name="screen_measurement_details">Podrobnosti meritve</string>
     <string name="screen_measurements_list">Seznam meritev</string>
+    <string name="screen_settings">Nastavitve</string>
     <string name="subtitle_measurement_form">Vnesite podatke in spremljajte zdravje na pregleden način.</string>
     <string name="subtitle_measurement_details">Poglobljen prikaz shranjene meritve.</string>
+    <string name="settings_subtitle">Prilagodite videz in jezik aplikacije.</string>
     <string name="section_personal_data">Oseba</string>
     <string name="section_measurement_date">Datum</string>
     <string name="section_measurement_values">Vrednosti meritve</string>
+    <string name="section_appearance">Videz</string>
+    <string name="section_language">Jezik</string>
 
     <string name="field_first_name">Ime</string>
     <string name="field_last_name">Priimek</string>
@@ -19,6 +23,9 @@
     <string name="field_heart_rate_short">Srčni utrip</string>
     <string name="field_spo2_short">SpO2</string>
     <string name="field_temperature_short">Temperatura</string>
+    <string name="field_dark_mode">Temni način</string>
+    <string name="field_app_language">Jezik aplikacije</string>
+    <string name="hint_dark_mode">Izklopite za svetli način.</string>
 
     <string name="btn_select_date">Izberi datum</string>
     <string name="btn_datepicker_ok">OK</string>
@@ -45,8 +52,12 @@
     <string name="cd_edit_measurement">Uredi meritev</string>
     <string name="cd_delete_measurement">Izbriši meritev</string>
     <string name="cd_add_measurement">Dodaj meritev</string>
+    <string name="cd_open_settings">Odpri nastavitve</string>
 
     <string name="btn_add_first_measurement">Dodaj prvo meritev</string>
+    <string name="option_language_system">Privzeto po sistemu</string>
+    <string name="option_language_slovenian">Slovenščina</string>
+    <string name="option_language_english">Angleščina</string>
 
     <string name="value_bpm">%1$d bpm</string>
     <string name="value_percent">%1$d %%</string>

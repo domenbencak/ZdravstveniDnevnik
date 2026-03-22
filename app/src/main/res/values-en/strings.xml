@@ -4,11 +4,15 @@
     <string name="screen_edit_measurement">Edit measurement</string>
     <string name="screen_measurement_details">Measurement details</string>
     <string name="screen_measurements_list">Measurements list</string>
+    <string name="screen_settings">Settings</string>
     <string name="subtitle_measurement_form">Enter values and track health in a clean, engaging flow.</string>
     <string name="subtitle_measurement_details">Detailed view of a saved measurement.</string>
+    <string name="settings_subtitle">Customize the look and language of the app.</string>
     <string name="section_personal_data">Person</string>
     <string name="section_measurement_date">Date</string>
     <string name="section_measurement_values">Measurement values</string>
+    <string name="section_appearance">Appearance</string>
+    <string name="section_language">Language</string>
 
     <string name="field_first_name">First name</string>
     <string name="field_last_name">Last name</string>
@@ -19,6 +23,9 @@
     <string name="field_heart_rate_short">Heart rate</string>
     <string name="field_spo2_short">SpO2</string>
     <string name="field_temperature_short">Temperature</string>
+    <string name="field_dark_mode">Dark mode</string>
+    <string name="field_app_language">App language</string>
+    <string name="hint_dark_mode">Turn off to use light mode.</string>
 
     <string name="btn_select_date">Select date</string>
     <string name="btn_datepicker_ok">OK</string>
@@ -45,8 +52,12 @@
     <string name="cd_edit_measurement">Edit measurement</string>
     <string name="cd_delete_measurement">Delete measurement</string>
     <string name="cd_add_measurement">Add measurement</string>
+    <string name="cd_open_settings">Open settings</string>
 
     <string name="btn_add_first_measurement">Add first measurement</string>
+    <string name="option_language_system">System default</string>
+    <string name="option_language_slovenian">Slovenian</string>
+    <string name="option_language_english">English</string>
 
     <string name="value_bpm">%1$d bpm</string>
     <string name="value_percent">%1$d %%</string>

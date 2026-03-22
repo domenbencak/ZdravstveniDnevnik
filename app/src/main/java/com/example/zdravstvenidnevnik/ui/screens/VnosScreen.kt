@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.MonitorHeart
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,7 +43,8 @@ fun VnosScreen(
     viewModel: MeritevViewModel,
     editMeritevId: Int? = null,
     onMeritevSaved: (Int) -> Unit,
-    onNavigateToSeznam: () -> Unit
+    onNavigateToSeznam: () -> Unit,
+    onNavigateToSettings: () -> Unit
 ) {
     val isEditMode = editMeritevId != null
     val meritevZaUrejanje by viewModel.getById(editMeritevId ?: -1)
@@ -93,6 +95,19 @@ fun VnosScreen(
     }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(naslov) },
+                actions = {
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.cd_open_settings)
+                        )
+                    }
+                }
+            )
+        },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
         Column(

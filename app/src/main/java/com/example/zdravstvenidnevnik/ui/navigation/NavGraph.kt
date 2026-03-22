@@ -8,11 +8,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.zdravstvenidnevnik.ui.screens.*
 import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
+import com.example.zdravstvenidnevnik.viewmodel.SettingsViewModel
 
 @Composable
 fun MeritevNavHost(
     navController: NavHostController,
-    viewModel: MeritevViewModel
+    viewModel: MeritevViewModel,
+    settingsViewModel: SettingsViewModel
 ) {
     NavHost(
         navController = navController,
@@ -27,6 +29,9 @@ fun MeritevNavHost(
                 },
                 onNavigateToSeznam = {
                     navController.navigate("seznam")
+                },
+                onNavigateToSettings = {
+                    navController.navigate("settings")
                 }
             )
         }
@@ -48,6 +53,9 @@ fun MeritevNavHost(
                 },
                 onNavigateToSeznam = {
                     navController.navigate("seznam")
+                },
+                onNavigateToSettings = {
+                    navController.navigate("settings")
                 }
             )
         }
@@ -67,6 +75,9 @@ fun MeritevNavHost(
                 meritevId = meritevId,
                 onNavigateBack = {
                     navController.popBackStack()
+                },
+                onNavigateToSettings = {
+                    navController.navigate("settings")
                 }
             )
         }
@@ -77,7 +88,15 @@ fun MeritevNavHost(
                 onOpenDetails = { id -> navController.navigate("prikaz/$id") },
                 onEditMeasurement = { id -> navController.navigate("vnos/$id") },
                 onNavigateBack = { navController.popBackStack() },
-                onAddMeasurement = { navController.navigate("vnos") }
+                onAddMeasurement = { navController.navigate("vnos") },
+                onNavigateToSettings = { navController.navigate("settings") }
+            )
+        }
+
+        composable("settings") {
+            SettingsScreen(
+                settingsViewModel = settingsViewModel,
+                onNavigateBack = { navController.popBackStack() }
             )
         }
     }

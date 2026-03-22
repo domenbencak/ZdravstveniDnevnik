@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -57,7 +58,8 @@ fun SeznamScreen(
     onOpenDetails: (Int) -> Unit,
     onEditMeasurement: (Int) -> Unit,
     onNavigateBack: () -> Unit,
-    onAddMeasurement: () -> Unit
+    onAddMeasurement: () -> Unit,
+    onNavigateToSettings: () -> Unit
 ) {
     val meritve = viewModel.vseMeritve.collectAsStateWithLifecycle().value
     val dateFormat = remember { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()) }
@@ -74,6 +76,14 @@ fun SeznamScreen(
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.cd_back)
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.cd_open_settings)
                         )
                     }
                 }
