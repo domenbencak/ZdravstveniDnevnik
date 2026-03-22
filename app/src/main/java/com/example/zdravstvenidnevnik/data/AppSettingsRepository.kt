@@ -35,7 +35,7 @@ class AppSettingsRepository(
             preferences[Keys.DARK_MODE_ENABLED]
         }
 
-    val languageTag: Flow<String> = context.settingsDataStore.data
+    val languageTag: Flow<String?> = context.settingsDataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
@@ -44,7 +44,7 @@ class AppSettingsRepository(
             }
         }
         .map { preferences ->
-            preferences[Keys.LANGUAGE_TAG] ?: ""
+            preferences[Keys.LANGUAGE_TAG]
         }
 
     suspend fun setDarkModeEnabled(enabled: Boolean) {

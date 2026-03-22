@@ -19,11 +19,11 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             initialValue = null
         )
 
-    val languageTag: StateFlow<String> = repository.languageTag
+    val languageTag: StateFlow<String?> = repository.languageTag
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = ""
+            initialValue = null
         )
 
     fun setDarkModeEnabled(enabled: Boolean) {

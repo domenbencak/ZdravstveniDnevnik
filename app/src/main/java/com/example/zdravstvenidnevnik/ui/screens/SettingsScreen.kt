@@ -61,7 +61,7 @@ fun SettingsScreen(
             LanguageOption(tag = "en", labelRes = R.string.option_language_english)
         )
     }
-    val selectedLanguage = languageOptions.firstOrNull { it.tag == languageTag } ?: languageOptions.first()
+    val selectedLanguage = languageOptions.firstOrNull { it.tag == (languageTag ?: "") } ?: languageOptions.first()
     var languageExpanded by remember { mutableStateOf(false) }
 
     Scaffold(
