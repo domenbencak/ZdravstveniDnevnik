@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.zdravstvenidnevnik.R
@@ -23,6 +24,7 @@ import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.compose.ui.platform.LocalLocale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,12 +40,12 @@ fun PrikazScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(context.getString(R.string.screen_measurement_details)) },
+                title = { Text(stringResource(R.string.screen_measurement_details)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = context.getString(R.string.cd_back)
+                            contentDescription = stringResource(R.string.cd_back)
                         )
                     }
                 }
@@ -74,28 +76,28 @@ fun PrikazScreen(
                         )
                         HorizontalDivider()
                         val dateFormat = SimpleDateFormat(
-                            "dd.MM.yyyy", Locale.getDefault()
+                            "dd.MM.yyyy", LocalLocale.current.platformLocale
                         )
                         PodatekRow(
-                            context.getString(R.string.field_measurement_date),
+                            stringResource(R.string.field_measurement_date),
                             dateFormat.format(Date(m.datum))
                         )
                         PodatekRow(
-                            context.getString(R.string.field_heart_rate_short),
-                            context.getString(R.string.value_bpm, m.srcniUtrip)
+                            stringResource(R.string.field_heart_rate_short),
+                            stringResource(R.string.value_bpm, m.srcniUtrip)
                         )
                         PodatekRow(
-                            context.getString(R.string.field_spo2_short),
-                            context.getString(R.string.value_percent, m.spO2)
+                            stringResource(R.string.field_spo2_short),
+                            stringResource(R.string.value_percent, m.spO2)
                         )
                         PodatekRow(
-                            context.getString(R.string.field_temperature_short),
-                            context.getString(R.string.value_celsius, m.temperatura)
+                            stringResource(R.string.field_temperature_short),
+                            stringResource(R.string.value_celsius, m.temperatura)
                         )
                     }
                 }
             } ?: run {
-                Text(context.getString(R.string.msg_measurement_not_found))
+                Text(stringResource(R.string.msg_measurement_not_found))
             }
         }
     }

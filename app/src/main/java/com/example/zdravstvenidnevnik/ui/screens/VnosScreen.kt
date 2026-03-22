@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.compose.ui.res.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,15 +61,15 @@ fun VnosScreen(
     val df = remember { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()) }
 
     val naslov = if (isEditMode) {
-        context.getString(R.string.screen_edit_measurement)
+        stringResource(R.string.screen_edit_measurement)
     } else {
-        context.getString(R.string.screen_new_measurement)
+        stringResource(R.string.screen_new_measurement)
     }
 
     val snackbarSuccess = if (isEditMode) {
-        context.getString(R.string.msg_measurement_updated)
+        stringResource(R.string.msg_measurement_updated)
     } else {
-        context.getString(R.string.msg_measurement_saved)
+        stringResource(R.string.msg_measurement_saved)
     }
 
     LaunchedEffect(isEditMode, meritevZaUrejanje?.id) {
@@ -106,11 +107,11 @@ fun VnosScreen(
                     ime = it
                     imeError = null
                 },
-                label = { Text(context.getString(R.string.field_first_name)) },
+                label = { Text(stringResource(R.string.field_first_name)) },
                 isError = imeError != null,
                 supportingText = {
                     if (imeError != null) {
-                        Text(context.getString(imeError!!))
+                        Text(stringResource(imeError!!))
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -123,11 +124,11 @@ fun VnosScreen(
                     priimek = it
                     priimekError = null
                 },
-                label = { Text(context.getString(R.string.field_last_name)) },
+                label = { Text(stringResource(R.string.field_last_name)) },
                 isError = priimekError != null,
                 supportingText = {
                     if (priimekError != null) {
-                        Text(context.getString(priimekError!!))
+                        Text(stringResource(priimekError!!))
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -139,7 +140,7 @@ fun VnosScreen(
                     value = df.format(Date(selectedDateMillis)),
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(context.getString(R.string.field_measurement_date)) },
+                    label = { Text(stringResource(R.string.field_measurement_date)) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -165,12 +166,12 @@ fun VnosScreen(
                                 datePickerState.selectedDateMillis ?: selectedDateMillis
                             showDatePicker = false
                         }) {
-                            Text(context.getString(R.string.btn_datepicker_ok))
+                            Text(stringResource(R.string.btn_datepicker_ok))
                         }
                     },
                     dismissButton = {
                         TextButton(onClick = { showDatePicker = false }) {
-                            Text(context.getString(R.string.btn_datepicker_cancel))
+                            Text(stringResource(R.string.btn_datepicker_cancel))
                         }
                     }
                 ) {
@@ -184,11 +185,11 @@ fun VnosScreen(
                     srcniUtrip = it
                     srcniUtripError = null
                 },
-                label = { Text(context.getString(R.string.field_heart_rate)) },
+                label = { Text(stringResource(R.string.field_heart_rate)) },
                 isError = srcniUtripError != null,
                 supportingText = {
                     if (srcniUtripError != null) {
-                        Text(context.getString(srcniUtripError!!))
+                        Text(stringResource(srcniUtripError!!))
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -202,11 +203,11 @@ fun VnosScreen(
                     spO2 = it
                     spO2Error = null
                 },
-                label = { Text(context.getString(R.string.field_spo2)) },
+                label = { Text(stringResource(R.string.field_spo2)) },
                 isError = spO2Error != null,
                 supportingText = {
                     if (spO2Error != null) {
-                        Text(context.getString(spO2Error!!))
+                        Text(stringResource(spO2Error!!))
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -220,11 +221,11 @@ fun VnosScreen(
                     temperatura = it
                     temperaturaError = null
                 },
-                label = { Text(context.getString(R.string.field_temperature)) },
+                label = { Text(stringResource(R.string.field_temperature)) },
                 isError = temperaturaError != null,
                 supportingText = {
                     if (temperaturaError != null) {
-                        Text(context.getString(temperaturaError!!))
+                        Text(stringResource(temperaturaError!!))
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -302,9 +303,9 @@ fun VnosScreen(
             ) {
                 Text(
                     if (isEditMode) {
-                        context.getString(R.string.btn_update_measurement)
+                        stringResource(R.string.btn_update_measurement)
                     } else {
-                        context.getString(R.string.btn_save_measurement)
+                        stringResource(R.string.btn_save_measurement)
                     }
                 )
             }
@@ -313,7 +314,7 @@ fun VnosScreen(
                 onClick = onNavigateToSeznam,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(context.getString(R.string.btn_measurements_list))
+                Text(stringResource(R.string.btn_measurements_list))
             }
         }
     }

@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.zdravstvenidnevnik.R
@@ -51,12 +52,12 @@ fun SeznamScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(context.getString(R.string.screen_measurements_list)) },
+                title = { Text(stringResource(R.string.screen_measurements_list)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = context.getString(R.string.cd_back)
+                            contentDescription = stringResource(R.string.cd_back)
                         )
                     }
                 }
@@ -73,7 +74,7 @@ fun SeznamScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = context.getString(R.string.msg_empty_measurements),
+                    text = stringResource(R.string.msg_empty_measurements),
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
@@ -122,12 +123,12 @@ private fun MeritevListCard(
             )
 
             Text(
-                text = context.getString(R.string.value_date, formattedDate),
+                text = stringResource(R.string.value_date, formattedDate),
                 style = MaterialTheme.typography.bodyMedium
             )
 
             Text(
-                text = context.getString(R.string.value_bpm, meritev.srcniUtrip),
+                text = stringResource(R.string.value_bpm, meritev.srcniUtrip),
                 style = MaterialTheme.typography.bodyMedium
             )
 
@@ -138,13 +139,13 @@ private fun MeritevListCard(
                 IconButton(onClick = onEdit) {
                     Icon(
                         imageVector = Icons.Filled.Edit,
-                        contentDescription = context.getString(R.string.cd_edit_measurement)
+                        contentDescription = stringResource(R.string.cd_edit_measurement)
                     )
                 }
                 IconButton(onClick = onDelete) {
                     Icon(
                         imageVector = Icons.Filled.Delete,
-                        contentDescription = context.getString(R.string.cd_delete_measurement)
+                        contentDescription = stringResource(R.string.cd_delete_measurement)
                     )
                 }
             }
