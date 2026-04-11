@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 @Database(
     entities = [Meritev::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class MeritevDatabase : RoomDatabase() {

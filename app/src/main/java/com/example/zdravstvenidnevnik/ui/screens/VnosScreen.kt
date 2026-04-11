@@ -11,7 +11,10 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.MonitorHeart
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Thermostat
+import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
@@ -81,6 +84,7 @@ fun VnosScreen(
     } else {
         stringResource(R.string.msg_measurement_saved)
     }
+    val sensorReadFailedMessage = stringResource(R.string.msg_sensor_read_failed)
 
     LaunchedEffect(isEditMode, meritevZaUrejanje?.id) {
         if (isEditMode && meritevZaUrejanje != null && !fieldsInitialized) {
@@ -257,6 +261,27 @@ fun VnosScreen(
                         },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
+                        trailingIcon = {
+                            IconButton(
+                                onClick = {
+                                    viewModel.readHeartRate { value ->
+                                        if (value != null) {
+                                            srcniUtrip = value.toString()
+                                            srcniUtripError = null
+                                        } else {
+                                            scope.launch {
+                                                snackbarHostState.showSnackbar(sensorReadFailedMessage)
+                                            }
+                                        }
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.MonitorHeart,
+                                    contentDescription = stringResource(R.string.cd_fill_heart_rate_sensor)
+                                )
+                            }
+                        },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
 
@@ -275,6 +300,27 @@ fun VnosScreen(
                         },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
+                        trailingIcon = {
+                            IconButton(
+                                onClick = {
+                                    viewModel.readSpO2 { value ->
+                                        if (value != null) {
+                                            spO2 = value.toString()
+                                            spO2Error = null
+                                        } else {
+                                            scope.launch {
+                                                snackbarHostState.showSnackbar(sensorReadFailedMessage)
+                                            }
+                                        }
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.WaterDrop,
+                                    contentDescription = stringResource(R.string.cd_fill_spo2_sensor)
+                                )
+                            }
+                        },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
 
@@ -293,6 +339,27 @@ fun VnosScreen(
                         },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
+                        trailingIcon = {
+                            IconButton(
+                                onClick = {
+                                    viewModel.readTemperature { value ->
+                                        if (value != null) {
+                                            temperatura = value.toString()
+                                            temperaturaError = null
+                                        } else {
+                                            scope.launch {
+                                                snackbarHostState.showSnackbar(sensorReadFailedMessage)
+                                            }
+                                        }
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Thermostat,
+                                    contentDescription = stringResource(R.string.cd_fill_temperature_sensor)
+                                )
+                            }
+                        },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
                     )
                 }

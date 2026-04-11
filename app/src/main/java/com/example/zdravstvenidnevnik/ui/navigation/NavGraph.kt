@@ -1,12 +1,14 @@
 package com.example.zdravstvenidnevnik.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.zdravstvenidnevnik.ui.screens.*
+import com.example.zdravstvenidnevnik.viewmodel.AuthViewModel
 import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
 import com.example.zdravstvenidnevnik.viewmodel.SettingsViewModel
 
@@ -14,12 +16,42 @@ import com.example.zdravstvenidnevnik.viewmodel.SettingsViewModel
 fun MeritevNavHost(
     navController: NavHostController,
     viewModel: MeritevViewModel,
-    settingsViewModel: SettingsViewModel
+    settingsViewModel: SettingsViewModel,
+    authViewModel: AuthViewModel
 ) {
+    val authUiState = authViewModel.uiState.collectAsStateWithLifecycle().value
+    val startDestination = if (authUiState.currentUser == null) "auth" else "vnos"
+    val navigateToAuth: () -> Unit = {
+        navController.navigate("auth") {
+            popUpTo(navController.graph.id) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
+    val logoutAndNavigateToAuth: () -> Unit = {
+        authViewModel.logout()
+        navigateToAuth()
+    }
+
     NavHost(
         navController = navController,
-        startDestination = "vnos"
+        startDestination = startDestination
     ) {
+        composable("auth") {
+            AuthScreen(
+                authViewModel = authViewModel,
+                onAuthSuccess = {
+                    navController.navigate("vnos") {
+                        popUpTo("auth") {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+
         composable("vnos") {
             VnosScreen(
                 viewModel = viewModel,
@@ -89,14 +121,26 @@ fun MeritevNavHost(
                 onEditMeasurement = { id -> navController.navigate("vnos/$id") },
                 onNavigateBack = { navController.popBackStack() },
                 onAddMeasurement = { navController.navigate("vnos") },
-                onNavigateToSettings = { navController.navigate("settings") }
+                onNavigateToSettings = { navController.navigate("settings") },
+                onSyncFromCloud = { viewModel.syncFromFirestore() },
+                onLogout = logoutAndNavigateToAuth,
+                loggedInEmail = authUiState.currentUser?.email.orEmpty()
             )
         }
 
         composable("settings") {
             SettingsScreen(
                 settingsViewModel = settingsViewModel,
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                onOpenProfile = { navController.navigate("settings/profile") }
+            )
+        }
+
+        composable("settings/profile") {
+            ProfileScreen(
+                authViewModel = authViewModel,
+                onNavigateBack = { navController.popBackStack() },
+                onLoggedOut = navigateToAuth
             )
         }
     }

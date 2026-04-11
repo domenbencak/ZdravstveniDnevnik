@@ -5,6 +5,8 @@
     <string name="screen_measurement_details">Podrobnosti meritve</string>
     <string name="screen_measurements_list">Seznam meritev</string>
     <string name="screen_settings">Nastavitve</string>
+    <string name="screen_profile">Profil</string>
+    <string name="screen_auth">Prijava</string>
     <string name="subtitle_measurement_form">Vnesite podatke in spremljajte zdravje na pregleden način.</string>
     <string name="subtitle_measurement_details">Poglobljen prikaz shranjene meritve.</string>
     <string name="settings_subtitle">Prilagodite videz in jezik aplikacije.</string>
@@ -13,6 +15,7 @@
     <string name="section_measurement_values">Vrednosti meritve</string>
     <string name="section_appearance">Videz</string>
     <string name="section_language">Jezik</string>
+    <string name="section_profile">Profil</string>
 
     <string name="field_first_name">Ime</string>
     <string name="field_last_name">Priimek</string>
@@ -23,6 +26,12 @@
     <string name="field_heart_rate_short">Srčni utrip</string>
     <string name="field_spo2_short">SpO2</string>
     <string name="field_temperature_short">Temperatura</string>
+    <string name="field_email">E-pošta</string>
+    <string name="field_password">Geslo</string>
+    <string name="field_display_name">Prikazno ime</string>
+    <string name="field_user_id">ID uporabnika</string>
+    <string name="field_auth_provider">Ponudnik prijave</string>
+    <string name="field_email_verified">E-pošta potrjena</string>
     <string name="field_dark_mode">Temni način</string>
     <string name="field_app_language">Jezik aplikacije</string>
     <string name="hint_dark_mode">Izklopite za svetli način.</string>
@@ -33,14 +42,28 @@
     <string name="btn_save_measurement">Shrani meritev</string>
     <string name="btn_update_measurement">Posodobi meritev</string>
     <string name="btn_measurements_list">Seznam meritev</string>
+    <string name="btn_login">Prijava</string>
+    <string name="btn_register">Registracija</string>
+    <string name="btn_open_profile">Odpri profil</string>
+    <string name="btn_save_display_name">Shrani prikazno ime</string>
+    <string name="btn_logout_clean">Odjava</string>
 
     <string name="msg_measurement_saved">Meritev uspešno shranjena</string>
     <string name="msg_measurement_updated">Meritev uspešno posodobljena</string>
     <string name="msg_measurement_not_found">Meritev ni najdena.</string>
     <string name="msg_empty_measurements">Ni shranjenih meritev.</string>
     <string name="msg_empty_measurements_hint">Začnite z dodajanjem prve meritve in spremljajte napredek skozi čas.</string>
+    <string name="msg_sensor_read_failed">Vrednosti ni bilo mogoče prebrati.</string>
+    <string name="msg_auth_subtitle">Prijavite se ali ustvarite račun za sinhronizacijo meritev.</string>
+    <string name="msg_switch_to_register">Nimate računa? Registrirajte se</string>
+    <string name="msg_switch_to_login">Že imate račun? Prijavite se</string>
+    <string name="auth_title_login">Prijava v račun</string>
+    <string name="auth_title_register">Ustvari račun</string>
+    <string name="settings_profile_subtitle">Odprite svoj profil, preverite podatke računa in se varno odjavite.</string>
+    <string name="profile_subtitle">Podatki so prikazani iz Firebase Authentication.</string>
     <string name="summary_measurements_count">Skupaj meritev: %1$d</string>
     <string name="summary_measurements_hint">Dotik kartice odpre podrobnosti, ikoni omogočata urejanje in brisanje.</string>
+    <string name="label_logged_in_user">Prijavljen uporabnik: %1$s</string>
 
     <string name="error_first_name_required">Ime je obvezno.</string>
     <string name="error_last_name_required">Priimek je obvezen.</string>
@@ -53,6 +76,14 @@
     <string name="cd_delete_measurement">Izbriši meritev</string>
     <string name="cd_add_measurement">Dodaj meritev</string>
     <string name="cd_open_settings">Odpri nastavitve</string>
+    <string name="cd_open_profile">Odpri profil</string>
+    <string name="cd_sync_cloud">Sinhroniziraj z oblakom</string>
+    <string name="cd_logout">Odjava</string>
+    <string name="cd_fill_heart_rate_sensor">Preberi srčni utrip</string>
+    <string name="cd_fill_spo2_sensor">Preberi SpO2</string>
+    <string name="cd_fill_temperature_sensor">Preberi temperaturo</string>
+    <string name="cd_show_password">Prikaži geslo</string>
+    <string name="cd_hide_password">Skrij geslo</string>
 
     <string name="btn_add_first_measurement">Dodaj prvo meritev</string>
     <string name="option_language_system">Privzeto po sistemu</string>
@@ -63,4 +94,7 @@
     <string name="value_percent">%1$d %%</string>
     <string name="value_celsius">%1$.1f °C</string>
     <string name="value_date">Datum: %1$s</string>
+    <string name="value_not_available">Ni na voljo</string>
+    <string name="value_yes">Da</string>
+    <string name="value_no">Ne</string>
 </resources>

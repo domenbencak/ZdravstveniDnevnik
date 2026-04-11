@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "245493496556",
+    "project_id": "tvza-zdravstveni-dnevnik",
+    "storage_bucket": "tvza-zdravstveni-dnevnik.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245493496556:android:31c7c2287f58ff290f43c9",
+        "android_client_info": {
+          "package_name": "com.example.zdravstvenidnevnik"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRX8x6Dj2pwWaFYZ3ZdaGmpv2ikpXxQEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

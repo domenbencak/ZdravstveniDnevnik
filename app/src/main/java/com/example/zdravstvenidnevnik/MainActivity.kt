@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.activity.SystemBarStyle
 import com.example.zdravstvenidnevnik.ui.navigation.MeritevNavHost
 import com.example.zdravstvenidnevnik.ui.theme.ZdravstveniDnevnikTheme
+import com.example.zdravstvenidnevnik.viewmodel.AuthViewModel
 import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
 import com.example.zdravstvenidnevnik.viewmodel.SettingsViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
             val meritevViewModel: MeritevViewModel = viewModel()
+            val authViewModel: AuthViewModel = viewModel()
             val settingsViewModel: SettingsViewModel = viewModel()
             val darkModeEnabled by settingsViewModel.darkModeEnabled.collectAsStateWithLifecycle()
             val languageTag by settingsViewModel.languageTag.collectAsStateWithLifecycle()
@@ -73,7 +75,8 @@ class MainActivity : AppCompatActivity() {
                     MeritevNavHost(
                         navController = navController,
                         viewModel = meritevViewModel,
-                        settingsViewModel = settingsViewModel
+                        settingsViewModel = settingsViewModel,
+                        authViewModel = authViewModel
                     )
                 }
             }

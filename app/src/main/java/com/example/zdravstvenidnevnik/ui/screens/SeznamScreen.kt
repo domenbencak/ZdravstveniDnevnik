@@ -18,10 +18,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -59,7 +61,10 @@ fun SeznamScreen(
     onEditMeasurement: (Int) -> Unit,
     onNavigateBack: () -> Unit,
     onAddMeasurement: () -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    onSyncFromCloud: () -> Unit,
+    onLogout: () -> Unit,
+    loggedInEmail: String
 ) {
     val meritve = viewModel.vseMeritve.collectAsStateWithLifecycle().value
     val dateFormat = remember { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()) }
@@ -80,6 +85,18 @@ fun SeznamScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = onSyncFromCloud) {
+                        Icon(
+                            imageVector = Icons.Filled.Refresh,
+                            contentDescription = stringResource(R.string.cd_sync_cloud)
+                        )
+                    }
+                    IconButton(onClick = onLogout) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.Logout,
+                            contentDescription = stringResource(R.string.cd_logout)
+                        )
+                    }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             imageVector = Icons.Filled.Settings,
@@ -128,6 +145,13 @@ fun SeznamScreen(
                     )
                     Text(
                         text = stringResource(R.string.summary_measurements_hint),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = stringResource(
+                            R.string.label_logged_in_user,
+                            if (loggedInEmail.isBlank()) "-" else loggedInEmail
+                        ),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
