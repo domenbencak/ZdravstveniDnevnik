@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Thermostat
@@ -37,7 +38,7 @@ fun PrikazScreen(
     viewModel: MeritevViewModel,
     meritevId: Int,
     onNavigateBack: () -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToEditScreen: () -> Unit
 ) {
     val meritev by viewModel.getById(meritevId)
         .collectAsStateWithLifecycle(initialValue = null)
@@ -58,10 +59,10 @@ fun PrikazScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = onNavigateToSettings) {
+                    IconButton(onClick = onNavigateToEditScreen) {
                         Icon(
-                            imageVector = Icons.Filled.Settings,
-                            contentDescription = stringResource(R.string.cd_open_settings)
+                            imageVector = Icons.Filled.Edit,
+                            contentDescription = stringResource(R.string.cd_edit_measurement)
                         )
                     }
                 }

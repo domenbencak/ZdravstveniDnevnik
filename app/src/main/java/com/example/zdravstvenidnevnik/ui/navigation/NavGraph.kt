@@ -121,8 +121,8 @@ fun MeritevNavHost(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onNavigateToSettings = {
-                    navController.navigate("settings")
+                onNavigateToEditScreen = {
+                    navController.navigate("vnos/$meritevId")
                 }
             )
         }

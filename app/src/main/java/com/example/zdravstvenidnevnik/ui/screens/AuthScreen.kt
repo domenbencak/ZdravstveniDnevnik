@@ -62,11 +62,7 @@ fun AuthScreen(
     }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.screen_auth)) }
-            )
-        }
+
     ) { paddingValues ->
         Box(
             modifier = Modifier
