@@ -57,7 +57,8 @@ fun VnosScreen(
         onMeritevSaved = onMeritevSaved,
         onNavigateToSeznam = onNavigateToSeznam,
         onNavigateToSettings = onNavigateToSettings,
-        currentUserDisplayName = FirebaseAuth.getInstance().currentUser?.displayName.orEmpty()
+        currentUserDisplayName = FirebaseAuth.getInstance().currentUser?.displayName.orEmpty(),
+        onMeritevEdited = {}
     )
 }
 
@@ -69,7 +70,8 @@ fun VnosScreen(
     onMeritevSaved: (Int) -> Unit,
     onNavigateToSeznam: () -> Unit,
     onNavigateToSettings: () -> Unit,
-    currentUserDisplayName: String
+    currentUserDisplayName: String,
+    onMeritevEdited: () -> Unit = {}
 ) {
     val isEditMode = editMeritevId != null
     val meritevZaUrejanje by viewModel.getById(editMeritevId ?: -1)
@@ -506,16 +508,23 @@ fun VnosScreen(
                         temperatura = parsedTemperatura
                     )
 
+                    fun clearVitalFields() {
+                        srcniUtrip = ""
+                        spO2 = ""
+                        temperatura = ""
+                        srcniUtripError = null
+                        spO2Error = null
+                        temperaturaError = null
+                    }
+
                     if (isEditMode) {
                         viewModel.update(meritev) {
-                            scope.launch {
-                                snackbarHostState.showSnackbar(snackbarSuccess)
-                                onMeritevSaved(meritev.id)
-                            }
+                            onMeritevEdited()
                         }
                     } else {
                         viewModel.insert(meritev) { id ->
                             scope.launch {
+                                clearVitalFields()
                                 snackbarHostState.showSnackbar(snackbarSuccess)
                                 onMeritevSaved(id)
                             }

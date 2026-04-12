@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.zdravstvenidnevnik.R
 import com.example.zdravstvenidnevnik.ui.screens.*
 import com.example.zdravstvenidnevnik.viewmodel.AuthViewModel
 import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
@@ -33,6 +34,7 @@ fun MeritevNavHost(
         authViewModel.logout()
         navigateToAuth()
     }
+    val seznamSnackbarMessageResKey = "seznam_snackbar_message_res"
 
     NavHost(
         navController = navController,
@@ -65,7 +67,8 @@ fun MeritevNavHost(
                 onNavigateToSettings = {
                     navController.navigate("settings")
                 },
-                currentUserDisplayName = authUiState.currentUserDisplayName
+                currentUserDisplayName = authUiState.currentUserDisplayName,
+                onMeritevEdited = {}
             )
         }
 
@@ -90,7 +93,15 @@ fun MeritevNavHost(
                 onNavigateToSettings = {
                     navController.navigate("settings")
                 },
-                currentUserDisplayName = authUiState.currentUserDisplayName
+                currentUserDisplayName = authUiState.currentUserDisplayName,
+                onMeritevEdited = {
+                    navController.previousBackStackEntry
+                        ?.savedStateHandle
+                        ?.set(seznamSnackbarMessageResKey, R.string.msg_measurement_updated)
+                    if (!navController.popBackStack()) {
+                        navController.navigate("seznam")
+                    }
+                }
             )
         }
 
@@ -116,7 +127,13 @@ fun MeritevNavHost(
             )
         }
 
-        composable("seznam") {
+        composable("seznam") { backStackEntry ->
+            val snackbarMessageResId = backStackEntry.savedStateHandle
+                .get<Int>(seznamSnackbarMessageResKey)
+            if (snackbarMessageResId != null) {
+                backStackEntry.savedStateHandle.remove<Int>(seznamSnackbarMessageResKey)
+            }
+
             SeznamScreen(
                 viewModel = viewModel,
                 onOpenDetails = { id -> navController.navigate("prikaz/$id") },
@@ -126,7 +143,8 @@ fun MeritevNavHost(
                 onNavigateToSettings = { navController.navigate("settings") },
                 onSyncFromCloud = { viewModel.syncFromFirestore() },
                 onLogout = logoutAndNavigateToAuth,
-                loggedInEmail = authUiState.currentUser?.email.orEmpty()
+                loggedInEmail = authUiState.currentUser?.email.orEmpty(),
+                snackbarMessageResId = snackbarMessageResId
             )
         }
 
