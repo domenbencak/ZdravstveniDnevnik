@@ -90,7 +90,21 @@ class MeritevViewModel(application: Application) : AndroidViewModel(application)
 
     fun delete(meritev: Meritev, onDone: () -> Unit = {}) {
         viewModelScope.launch {
-            repository.delete(meritev)
+            val currentUid = currentUserId.value
+            val meritevWithUser = if (meritev.userId.isBlank() && currentUid.isNotBlank()) {
+                meritev.copy(userId = currentUid)
+            } else {
+                meritev
+            }
+
+            repository.delete(meritevWithUser)
+
+            try {
+                firestoreRepository.deleteMeritev(meritevWithUser)
+            } catch (exception: Exception) {
+                Log.w(TAG, "Firestore delete failed; local delete kept.", exception)
+            }
+
             onDone()
         }
     }

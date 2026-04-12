@@ -1,5 +1,6 @@
 package com.example.zdravstvenidnevnik.viewmodel
 
+import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +15,7 @@ import kotlinx.coroutines.tasks.await
 
 data class AuthUiState(
     val currentUser: FirebaseUser? = null,
+    val currentUserDisplayName: String = "",
     val isLoading: Boolean = false,
     val errorMessage: String? = null
 )
@@ -22,7 +24,10 @@ class AuthViewModel : ViewModel() {
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     private val _uiState = MutableStateFlow(
-        AuthUiState(currentUser = firebaseAuth.currentUser)
+        AuthUiState(
+            currentUser = firebaseAuth.currentUser,
+            currentUserDisplayName = firebaseAuth.currentUser?.displayName.orEmpty()
+        )
     )
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
@@ -30,6 +35,7 @@ class AuthViewModel : ViewModel() {
         _uiState.update {
             it.copy(
                 currentUser = auth.currentUser,
+                currentUserDisplayName = auth.currentUser?.displayName.orEmpty(),
                 isLoading = false
             )
         }
@@ -40,9 +46,11 @@ class AuthViewModel : ViewModel() {
     }
 
     fun login(email: String, password: String) {
-        if (email.isBlank() || password.isBlank()) {
+        val normalizedEmail = email.trim()
+        val validationError = validateCredentials(normalizedEmail, password)
+        if (validationError != null) {
             _uiState.update {
-                it.copy(errorMessage = "Email and password are required.")
+                it.copy(errorMessage = validationError)
             }
             return
         }
@@ -50,10 +58,11 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
             try {
-                firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                firebaseAuth.signInWithEmailAndPassword(normalizedEmail, password).await()
                 _uiState.update {
                     it.copy(
                         currentUser = firebaseAuth.currentUser,
+                        currentUserDisplayName = firebaseAuth.currentUser?.displayName.orEmpty(),
                         isLoading = false,
                         errorMessage = null
                     )
@@ -70,9 +79,11 @@ class AuthViewModel : ViewModel() {
     }
 
     fun register(email: String, password: String) {
-        if (email.isBlank() || password.isBlank()) {
+        val normalizedEmail = email.trim()
+        val validationError = validateCredentials(normalizedEmail, password)
+        if (validationError != null) {
             _uiState.update {
-                it.copy(errorMessage = "Email and password are required.")
+                it.copy(errorMessage = validationError)
             }
             return
         }
@@ -80,10 +91,11 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
             try {
-                firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                firebaseAuth.createUserWithEmailAndPassword(normalizedEmail, password).await()
                 _uiState.update {
                     it.copy(
                         currentUser = firebaseAuth.currentUser,
+                        currentUserDisplayName = firebaseAuth.currentUser?.displayName.orEmpty(),
                         isLoading = false,
                         errorMessage = null
                     )
@@ -121,6 +133,7 @@ class AuthViewModel : ViewModel() {
                 _uiState.update {
                     it.copy(
                         currentUser = firebaseAuth.currentUser,
+                        currentUserDisplayName = firebaseAuth.currentUser?.displayName.orEmpty(),
                         isLoading = false,
                         errorMessage = null
                     )
@@ -138,7 +151,7 @@ class AuthViewModel : ViewModel() {
 
     fun logout() {
         firebaseAuth.signOut()
-        _uiState.value = AuthUiState(currentUser = null)
+        _uiState.value = AuthUiState(currentUser = null, currentUserDisplayName = "")
     }
 
     fun clearError() {
@@ -148,5 +161,22 @@ class AuthViewModel : ViewModel() {
     override fun onCleared() {
         firebaseAuth.removeAuthStateListener(authStateListener)
         super.onCleared()
+    }
+
+    private fun validateCredentials(email: String, password: String): String? {
+        if (email.isBlank() || password.isBlank()) {
+            return "Email and password are required."
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            return "Please enter a valid email address."
+        }
+        if (password.length < MIN_PASSWORD_LENGTH) {
+            return "Password must be at least $MIN_PASSWORD_LENGTH characters."
+        }
+        return null
+    }
+
+    private companion object {
+        private const val MIN_PASSWORD_LENGTH = 6
     }
 }

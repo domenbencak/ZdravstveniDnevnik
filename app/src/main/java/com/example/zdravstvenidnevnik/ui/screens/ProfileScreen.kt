@@ -48,9 +48,10 @@ fun ProfileScreen(
 ) {
     val authUiState by authViewModel.uiState.collectAsStateWithLifecycle()
     val currentUser = authUiState.currentUser
+    val currentUserDisplayName = authUiState.currentUserDisplayName
     val fallbackValue = stringResource(R.string.value_not_available)
-    var displayNameInput by rememberSaveable(currentUser?.uid, currentUser?.displayName) {
-        mutableStateOf(currentUser?.displayName.orEmpty())
+    var displayNameInput by rememberSaveable(currentUser?.uid, currentUserDisplayName) {
+        mutableStateOf(currentUserDisplayName)
     }
 
     LaunchedEffect(currentUser?.uid) {

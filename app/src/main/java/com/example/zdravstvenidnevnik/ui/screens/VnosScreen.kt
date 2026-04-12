@@ -82,9 +82,8 @@ fun VnosScreen(
     var temperatura by rememberSaveable { mutableStateOf("") }
     var selectedDateMillis by rememberSaveable { mutableStateOf(System.currentTimeMillis()) }
     var fieldsInitialized by rememberSaveable(editMeritevId) { mutableStateOf(false) }
-    var profilePrefillApplied by rememberSaveable(editMeritevId, currentUserDisplayName) {
-        mutableStateOf(false)
-    }
+    var lastPrefilledIme by rememberSaveable(editMeritevId) { mutableStateOf("") }
+    var lastPrefilledPriimek by rememberSaveable(editMeritevId) { mutableStateOf("") }
 
     var imeError by rememberSaveable { mutableStateOf<Int?>(null) }
     var priimekError by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -123,28 +122,31 @@ fun VnosScreen(
         }
     }
 
-    LaunchedEffect(isEditMode, currentUserDisplayName, profilePrefillApplied) {
-        if (isEditMode || profilePrefillApplied) return@LaunchedEffect
+    LaunchedEffect(isEditMode, currentUserDisplayName) {
+        if (isEditMode) return@LaunchedEffect
 
         val normalizedDisplayName = currentUserDisplayName.trim()
-        if (normalizedDisplayName.isBlank()) {
-            profilePrefillApplied = true
-            return@LaunchedEffect
-        }
+        if (normalizedDisplayName.isBlank()) return@LaunchedEffect
 
         val nameParts = normalizedDisplayName.split(Regex("\\s+"))
             .filter { it.isNotBlank() }
+        if (nameParts.isEmpty()) return@LaunchedEffect
 
-        if (nameParts.isNotEmpty()) {
-            if (ime.isBlank()) {
-                ime = nameParts.first()
-            }
-            if (priimek.isBlank()) {
-                priimek = nameParts.drop(1).joinToString(" ")
-            }
+        val prefillIme = nameParts.first()
+        val prefillPriimek = nameParts.drop(1).joinToString(" ")
+
+        val canReplaceIme = ime.isBlank() || ime == lastPrefilledIme
+        val canReplacePriimek = priimek.isBlank() || priimek == lastPrefilledPriimek
+
+        if (canReplaceIme) {
+            ime = prefillIme
+        }
+        if (canReplacePriimek) {
+            priimek = prefillPriimek
         }
 
-        profilePrefillApplied = true
+        lastPrefilledIme = prefillIme
+        lastPrefilledPriimek = prefillPriimek
     }
 
     Scaffold(
