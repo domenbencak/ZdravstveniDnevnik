@@ -34,6 +34,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.zdravstvenidnevnik.R
 import com.example.zdravstvenidnevnik.data.Meritev
 import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -50,6 +51,26 @@ fun VnosScreen(
     onNavigateToSeznam: () -> Unit,
     onNavigateToSettings: () -> Unit
 ) {
+    VnosScreen(
+        viewModel = viewModel,
+        editMeritevId = editMeritevId,
+        onMeritevSaved = onMeritevSaved,
+        onNavigateToSeznam = onNavigateToSeznam,
+        onNavigateToSettings = onNavigateToSettings,
+        currentUserDisplayName = FirebaseAuth.getInstance().currentUser?.displayName.orEmpty()
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun VnosScreen(
+    viewModel: MeritevViewModel,
+    editMeritevId: Int? = null,
+    onMeritevSaved: (Int) -> Unit,
+    onNavigateToSeznam: () -> Unit,
+    onNavigateToSettings: () -> Unit,
+    currentUserDisplayName: String
+) {
     val isEditMode = editMeritevId != null
     val meritevZaUrejanje by viewModel.getById(editMeritevId ?: -1)
         .collectAsStateWithLifecycle(initialValue = null)
@@ -61,6 +82,9 @@ fun VnosScreen(
     var temperatura by rememberSaveable { mutableStateOf("") }
     var selectedDateMillis by rememberSaveable { mutableStateOf(System.currentTimeMillis()) }
     var fieldsInitialized by rememberSaveable(editMeritevId) { mutableStateOf(false) }
+    var profilePrefillApplied by rememberSaveable(editMeritevId, currentUserDisplayName) {
+        mutableStateOf(false)
+    }
 
     var imeError by rememberSaveable { mutableStateOf<Int?>(null) }
     var priimekError by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -97,6 +121,30 @@ fun VnosScreen(
             selectedDateMillis = m.datum
             fieldsInitialized = true
         }
+    }
+
+    LaunchedEffect(isEditMode, currentUserDisplayName, profilePrefillApplied) {
+        if (isEditMode || profilePrefillApplied) return@LaunchedEffect
+
+        val normalizedDisplayName = currentUserDisplayName.trim()
+        if (normalizedDisplayName.isBlank()) {
+            profilePrefillApplied = true
+            return@LaunchedEffect
+        }
+
+        val nameParts = normalizedDisplayName.split(Regex("\\s+"))
+            .filter { it.isNotBlank() }
+
+        if (nameParts.isNotEmpty()) {
+            if (ime.isBlank()) {
+                ime = nameParts.first()
+            }
+            if (priimek.isBlank()) {
+                priimek = nameParts.drop(1).joinToString(" ")
+            }
+        }
+
+        profilePrefillApplied = true
     }
 
     Scaffold(

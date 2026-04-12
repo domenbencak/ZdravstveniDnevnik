@@ -64,7 +64,8 @@ fun MeritevNavHost(
                 },
                 onNavigateToSettings = {
                     navController.navigate("settings")
-                }
+                },
+                currentUserDisplayName = authUiState.currentUser?.displayName.orEmpty()
             )
         }
 
@@ -88,7 +89,8 @@ fun MeritevNavHost(
                 },
                 onNavigateToSettings = {
                     navController.navigate("settings")
-                }
+                },
+                currentUserDisplayName = authUiState.currentUser?.displayName.orEmpty()
             )
         }
 
