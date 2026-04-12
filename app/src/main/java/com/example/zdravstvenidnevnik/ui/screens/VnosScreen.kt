@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.MonitorHeart
@@ -49,7 +50,8 @@ fun VnosScreen(
     editMeritevId: Int? = null,
     onMeritevSaved: (Int) -> Unit,
     onNavigateToSeznam: () -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     VnosScreen(
         viewModel = viewModel,
@@ -57,6 +59,7 @@ fun VnosScreen(
         onMeritevSaved = onMeritevSaved,
         onNavigateToSeznam = onNavigateToSeznam,
         onNavigateToSettings = onNavigateToSettings,
+        onNavigateBack = onNavigateBack,
         currentUserDisplayName = FirebaseAuth.getInstance().currentUser?.displayName.orEmpty(),
         onMeritevEdited = {}
     )
@@ -70,6 +73,7 @@ fun VnosScreen(
     onMeritevSaved: (Int) -> Unit,
     onNavigateToSeznam: () -> Unit,
     onNavigateToSettings: () -> Unit,
+    onNavigateBack: () -> Unit,
     currentUserDisplayName: String,
     onMeritevEdited: () -> Unit = {}
 ) {
@@ -155,6 +159,16 @@ fun VnosScreen(
         topBar = {
             TopAppBar(
                 title = { Text(naslov) },
+                navigationIcon = {
+                    if (isEditMode) {
+                        IconButton(onClick = onNavigateBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(R.string.cd_back)
+                            )
+                        }
+                    }
+                },
                 actions = {
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
@@ -525,8 +539,8 @@ fun VnosScreen(
                         viewModel.insert(meritev) { id ->
                             scope.launch {
                                 clearVitalFields()
-                                snackbarHostState.showSnackbar(snackbarSuccess)
                                 onMeritevSaved(id)
+                                snackbarHostState.showSnackbar(snackbarSuccess)
                             }
                         }
                     }

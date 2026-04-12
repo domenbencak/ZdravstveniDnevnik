@@ -67,6 +67,9 @@ fun MeritevNavHost(
                 onNavigateToSettings = {
                     navController.navigate("settings")
                 },
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
                 currentUserDisplayName = authUiState.currentUserDisplayName,
                 onMeritevEdited = {}
             )
@@ -92,6 +95,9 @@ fun MeritevNavHost(
                 },
                 onNavigateToSettings = {
                     navController.navigate("settings")
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
                 },
                 currentUserDisplayName = authUiState.currentUserDisplayName,
                 onMeritevEdited = {
