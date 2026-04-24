@@ -54,6 +54,9 @@
     <string name="msg_empty_measurements">No measurements saved yet.</string>
     <string name="msg_empty_measurements_hint">Start by adding your first measurement and track progress over time.</string>
     <string name="msg_sensor_read_failed">Measurement value could not be read.</string>
+    <string name="msg_ocr_read_failed">Could not recognize a value.</string>
+    <string name="msg_camera_permission_denied">Camera permission was not granted.</string>
+    <string name="msg_ocr_processing">Processing OCR ...</string>
     <string name="msg_auth_subtitle">Sign in or create an account to sync your measurements.</string>
     <string name="msg_switch_to_register">No account yet? Register</string>
     <string name="msg_switch_to_login">Already have an account? Login</string>
@@ -82,6 +85,11 @@
     <string name="cd_fill_heart_rate_sensor">Read heart rate from sensor/API</string>
     <string name="cd_fill_spo2_sensor">Read SpO2 from API</string>
     <string name="cd_fill_temperature_sensor">Read temperature from API</string>
+    <string name="cd_scan_heart_rate_ocr">Recognize heart rate with camera</string>
+    <string name="cd_scan_spo2_ocr">Recognize SpO2 with camera</string>
+    <string name="cd_scan_temperature_ocr">Recognize temperature with camera</string>
+    <string name="cd_capture_image">Capture image</string>
+    <string name="cd_close_camera">Close camera</string>
     <string name="cd_show_password">Show password</string>
     <string name="cd_hide_password">Hide password</string>
 

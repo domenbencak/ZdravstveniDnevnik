@@ -54,6 +54,9 @@
     <string name="msg_empty_measurements">Ni shranjenih meritev.</string>
     <string name="msg_empty_measurements_hint">Začnite z dodajanjem prve meritve in spremljajte napredek skozi čas.</string>
     <string name="msg_sensor_read_failed">Vrednosti ni bilo mogoče prebrati.</string>
+    <string name="msg_ocr_read_failed">Ni bilo mogoče prepoznati vrednosti</string>
+    <string name="msg_camera_permission_denied">Dovoljenje za kamero ni odobreno.</string>
+    <string name="msg_ocr_processing">Obdelava OCR ...</string>
     <string name="msg_auth_subtitle">Prijavite se ali ustvarite račun za sinhronizacijo meritev.</string>
     <string name="msg_switch_to_register">Nimate računa? Registrirajte se</string>
     <string name="msg_switch_to_login">Že imate račun? Prijavite se</string>
@@ -82,6 +85,11 @@
     <string name="cd_fill_heart_rate_sensor">Preberi srčni utrip</string>
     <string name="cd_fill_spo2_sensor">Preberi SpO2</string>
     <string name="cd_fill_temperature_sensor">Preberi temperaturo</string>
+    <string name="cd_scan_heart_rate_ocr">Prepoznaj srčni utrip s kamero</string>
+    <string name="cd_scan_spo2_ocr">Prepoznaj SpO2 s kamero</string>
+    <string name="cd_scan_temperature_ocr">Prepoznaj temperaturo s kamero</string>
+    <string name="cd_capture_image">Zajemi sliko</string>
+    <string name="cd_close_camera">Zapri kamero</string>
     <string name="cd_show_password">Prikaži geslo</string>
     <string name="cd_hide_password">Skrij geslo</string>
 
