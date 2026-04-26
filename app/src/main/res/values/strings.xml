@@ -3,6 +3,7 @@
     <string name="screen_new_measurement">Nova meritev</string>
     <string name="screen_edit_measurement">Urejanje meritve</string>
     <string name="screen_measurement_details">Podrobnosti meritve</string>
+    <string name="screen_classification_result">Rezultat klasifikacije</string>
     <string name="screen_measurements_list">Seznam meritev</string>
     <string name="screen_settings">Nastavitve</string>
     <string name="screen_profile">Profil</string>
@@ -34,6 +35,8 @@
     <string name="field_email_verified">E-pošta potrjena</string>
     <string name="field_dark_mode">Temni način</string>
     <string name="field_app_language">Jezik aplikacije</string>
+    <string name="field_health_status">Stanje</string>
+    <string name="field_confidence">Zanesljivost</string>
     <string name="hint_dark_mode">Izklopite za svetli način.</string>
 
     <string name="btn_select_date">Izberi datum</string>
@@ -58,6 +61,9 @@
     <string name="msg_camera_permission_denied">Dovoljenje za kamero ni odobreno.</string>
     <string name="msg_ocr_processing">Obdelava OCR ...</string>
     <string name="msg_auth_subtitle">Prijavite se ali ustvarite račun za sinhronizacijo meritev.</string>
+    <string name="msg_classification_unavailable">Klasifikacija ni na voljo.</string>
+    <string name="msg_classification_in_progress">Klasifikacija poteka ...</string>
+    <string name="msg_fallback_used">Prikazan je rezervni (rule-based) rezultat.</string>
     <string name="msg_switch_to_register">Nimate računa? Registrirajte se</string>
     <string name="msg_switch_to_login">Že imate račun? Prijavite se</string>
     <string name="auth_title_login">Prijava v račun</string>
@@ -105,4 +111,7 @@
     <string name="value_not_available">Ni na voljo</string>
     <string name="value_yes">Da</string>
     <string name="value_no">Ne</string>
+    <string name="status_normal">Normalno</string>
+    <string name="status_elevated">Povišano</string>
+    <string name="status_critical">Kritično</string>
 </resources>

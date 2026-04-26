@@ -85,4 +85,9 @@ dependencies {
     implementation("androidx.camera:camera-view:1.4.1")
     // ML Kit
     implementation("com.google.mlkit:text-recognition:16.0.1")
+    // TensorFlow Lite
+    implementation("org.tensorflow:tensorflow-lite:2.16.1")
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.4") {
+        exclude(group = "org.tensorflow", module = "tensorflow-lite-support-api")
+    }
 }

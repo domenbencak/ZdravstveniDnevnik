@@ -3,6 +3,7 @@
     <string name="screen_new_measurement">New measurement</string>
     <string name="screen_edit_measurement">Edit measurement</string>
     <string name="screen_measurement_details">Measurement details</string>
+    <string name="screen_classification_result">Classification result</string>
     <string name="screen_measurements_list">Measurements list</string>
     <string name="screen_settings">Settings</string>
     <string name="screen_profile">Profile</string>
@@ -34,6 +35,8 @@
     <string name="field_email_verified">Email verified</string>
     <string name="field_dark_mode">Dark mode</string>
     <string name="field_app_language">App language</string>
+    <string name="field_health_status">Status</string>
+    <string name="field_confidence">Confidence</string>
     <string name="hint_dark_mode">Turn off to use light mode.</string>
 
     <string name="btn_select_date">Select date</string>
@@ -58,6 +61,9 @@
     <string name="msg_camera_permission_denied">Camera permission was not granted.</string>
     <string name="msg_ocr_processing">Processing OCR ...</string>
     <string name="msg_auth_subtitle">Sign in or create an account to sync your measurements.</string>
+    <string name="msg_classification_unavailable">Classification is not available.</string>
+    <string name="msg_classification_in_progress">Classification in progress ...</string>
+    <string name="msg_fallback_used">Fallback (rule-based) classification is shown.</string>
     <string name="msg_switch_to_register">No account yet? Register</string>
     <string name="msg_switch_to_login">Already have an account? Login</string>
     <string name="auth_title_login">Sign in</string>
@@ -105,4 +111,7 @@
     <string name="value_not_available">Not available</string>
     <string name="value_yes">Yes</string>
     <string name="value_no">No</string>
+    <string name="status_normal">Normal</string>
+    <string name="status_elevated">Elevated</string>
+    <string name="status_critical">Critical</string>
 </resources>

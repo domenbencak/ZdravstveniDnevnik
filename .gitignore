@@ -20,3 +20,7 @@ local.properties
 /mock-api/node_modules/
 /mock-api/build/
 /mock-api/dist/
+app/google-services.json
+tflite-python-script/*
+!tflite-python-script/health-data.csv
+!tflite-python-script/train_and_convert.py

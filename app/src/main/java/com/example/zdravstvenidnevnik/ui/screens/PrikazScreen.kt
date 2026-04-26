@@ -6,11 +6,11 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Thermostat
 import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,27 +21,46 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.zdravstvenidnevnik.R
+import com.example.zdravstvenidnevnik.health.HealthStatus
+import com.example.zdravstvenidnevnik.health.formatConfidencePercent
+import com.example.zdravstvenidnevnik.viewmodel.HealthViewModel
 import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 import androidx.compose.ui.platform.LocalLocale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PrikazScreen(
     viewModel: MeritevViewModel,
+    healthViewModel: HealthViewModel,
     meritevId: Int,
     onNavigateBack: () -> Unit,
     onNavigateToEditScreen: () -> Unit
 ) {
     val meritev by viewModel.getById(meritevId)
         .collectAsStateWithLifecycle(initialValue = null)
+    val healthUiState by healthViewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(
+        meritev?.id,
+        meritev?.srcniUtrip,
+        meritev?.spO2,
+        meritev?.temperatura
+    ) {
+        val currentMeritev = meritev ?: return@LaunchedEffect
+        healthViewModel.classifyMeasurements(
+            hr = currentMeritev.srcniUtrip,
+            spo2 = currentMeritev.spO2,
+            temp = currentMeritev.temperatura
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -132,6 +151,87 @@ fun PrikazScreen(
                             label = stringResource(R.string.field_temperature_short),
                             value = stringResource(R.string.value_celsius, m.temperatura)
                         )
+                    }
+                }
+
+                val isClassificationForCurrentMeasurement = healthUiState.hr == m.srcniUtrip &&
+                    healthUiState.spo2 == m.spO2 &&
+                    healthUiState.temp == m.temperatura
+                val status = healthUiState.status
+                val statusColor = when (status) {
+                    HealthStatus.NORMAL -> Color.Green
+                    HealthStatus.ELEVATED -> Color(0xFFFFA500)
+                    HealthStatus.CRITICAL -> Color.Red
+                    null -> MaterialTheme.colorScheme.primary
+                }
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (status != null && isClassificationForCurrentMeasurement) {
+                            statusColor.copy(alpha = 0.14f)
+                        } else {
+                            MaterialTheme.colorScheme.surfaceContainer
+                        }
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.screen_classification_result),
+                            style = MaterialTheme.typography.titleMedium
+                        )
+
+                        if (healthUiState.isLoading || !isClassificationForCurrentMeasurement) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(20.dp),
+                                    strokeWidth = 2.dp
+                                )
+                                Text(
+                                    text = stringResource(R.string.msg_classification_in_progress),
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            }
+                        } else if (status != null) {
+                            MetricRow(
+                                icon = Icons.Filled.Favorite,
+                                label = stringResource(R.string.field_health_status),
+                                value = stringResource(
+                                    when (status) {
+                                        HealthStatus.NORMAL -> R.string.status_normal
+                                        HealthStatus.ELEVATED -> R.string.status_elevated
+                                        HealthStatus.CRITICAL -> R.string.status_critical
+                                    }
+                                )
+                            )
+                            MetricRow(
+                                icon = Icons.Filled.Favorite,
+                                label = stringResource(R.string.field_confidence),
+                                value = healthUiState.confidence?.let { confidence ->
+                                    formatConfidencePercent(confidence)
+                                } ?: stringResource(R.string.value_not_available)
+                            )
+
+                            if (healthUiState.usedFallback) {
+                                Text(
+                                    text = stringResource(R.string.msg_fallback_used),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        } else {
+                            Text(
+                                text = stringResource(R.string.msg_classification_unavailable),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                     }
                 }
             } ?: run {

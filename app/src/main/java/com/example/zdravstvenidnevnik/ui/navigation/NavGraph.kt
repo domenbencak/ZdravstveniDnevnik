@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.example.zdravstvenidnevnik.R
 import com.example.zdravstvenidnevnik.ui.screens.*
 import com.example.zdravstvenidnevnik.viewmodel.AuthViewModel
+import com.example.zdravstvenidnevnik.viewmodel.HealthViewModel
 import com.example.zdravstvenidnevnik.viewmodel.MeritevViewModel
 import com.example.zdravstvenidnevnik.viewmodel.SettingsViewModel
 
@@ -17,6 +18,7 @@ import com.example.zdravstvenidnevnik.viewmodel.SettingsViewModel
 fun MeritevNavHost(
     navController: NavHostController,
     viewModel: MeritevViewModel,
+    healthViewModel: HealthViewModel,
     settingsViewModel: SettingsViewModel,
     authViewModel: AuthViewModel
 ) {
@@ -123,6 +125,7 @@ fun MeritevNavHost(
                 ?.getInt("meritevId") ?: return@composable
             PrikazScreen(
                 viewModel = viewModel,
+                healthViewModel = healthViewModel,
                 meritevId = meritevId,
                 onNavigateBack = {
                     navController.popBackStack()
